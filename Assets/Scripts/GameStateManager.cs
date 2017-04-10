@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+Author: Nigel Munro
+*/
+
 public class GameStateManager : MonoBehaviour {
 
     enum States
