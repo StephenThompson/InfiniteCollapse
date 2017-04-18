@@ -12,7 +12,8 @@ public class GameStateManager : MonoBehaviour {
     {
         MAIN_MENU,
         PLAYING,
-        PAUSED
+        PAUSED,
+        SCORES
     }
 
     public int gameState;
@@ -22,6 +23,7 @@ public class GameStateManager : MonoBehaviour {
     public GameObject mainMenuCanvas;
     public GameObject playingCanvas;
     public GameObject pausedCanvas;
+    public GameObject scoresCanvas;
 
 
     void Start () {
@@ -30,18 +32,24 @@ public class GameStateManager : MonoBehaviour {
 	
 	
 	void Update () {
+        // We are playing and open the pause menu
         if (Input.GetButton("Cancel") && gameState == (int)States.PLAYING)
         {
             Pause();
-            if (Application.isEditor) {
-                //QuitToMenu();
-                
-            }
-            else
-            {
-                //QuitToMenu();
-            }
+            //if (Application.isEditor) {
+            //}
 
+        }
+        // We are at the score board and want to exit to menu
+        if (Input.GetButton("Cancel") && gameState == (int)States.SCORES)
+        {
+            ScoresToMenu();
+        }
+
+        // Pause to Playing
+        if (Input.GetButton("Cancel") && gameState == (int)States.PAUSED)
+        {
+            //Resume();
         }
     }
 
@@ -72,6 +80,21 @@ public class GameStateManager : MonoBehaviour {
         playingCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
         pausedCanvas.SetActive(false);
+        gameState = (int)States.MAIN_MENU;
+    }
+
+    public void Scores()
+    {
+        mainMenuCanvas.SetActive(false);
+        scoresCanvas.SetActive(true);
+        gameState = (int)States.SCORES;
+        GetComponent<ScoreStorer>().DisplayScores();
+    }
+
+    public void ScoresToMenu()
+    {
+        scoresCanvas.SetActive(false);
+        mainMenuCanvas.SetActive(true);
         gameState = (int)States.MAIN_MENU;
     }
 }

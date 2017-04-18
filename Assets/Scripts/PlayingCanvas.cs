@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+Author: Nigel Munro
+*/
+
 public class PlayingCanvas : MonoBehaviour {
 
     public GameObject levelTextGameObject;
