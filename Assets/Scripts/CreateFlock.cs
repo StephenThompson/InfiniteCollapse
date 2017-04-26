@@ -14,13 +14,12 @@ using UnityEngine;
 
 public class CreateFlock : MonoBehaviour {
     //Globals
-    Vector3 destination;                    
+    public GameObject destination;                    
     Bird leader;                                        //Root of the tree structure
     ArrayList flock = new ArrayList();                  //List of all the birds for easy access
 
 	//Initialization
     void Start () {
-        destination = new Vector3(6, 6, 0);
         leader = new Bird(0, 0, 0);
 
         //Put birds into flock
@@ -35,7 +34,7 @@ public class CreateFlock : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //Update leader destination and calacualte and apply steering vector...
-        leader.goal = destination;
+        leader.goal = destination.transform.position;
         Steer(leader);
 
         //Do the same for each bird
