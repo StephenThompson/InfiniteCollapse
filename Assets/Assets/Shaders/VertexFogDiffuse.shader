@@ -3,12 +3,16 @@ Shader "InfiniteCollapse/VertexFogDiffuse"
 {
 	Properties
 	{
-		[NoScaleOffset] _MainTex("Base (RGB)", 2D) = "white" {}
-		_FogColor("Fog Color", Color) = (0,0,0,0)
-		_FogStart("Linear Fog Start", Range(0, 100)) = 0.0
-		_FogEnd("Linear Fog End", Range(0, 100)) = 10.0
+		_MaterialColor("Base Color", Color) = (0, 0, 0, 0)
+		_FogColor("Fog Gradients", 2D) = "white" {}
+		_GradientCount("Fog Gradient Count", Int) = 8
+		_InitialGradient("Initial Fog Gradient", Int) = 0
+		_FogHeight("Fog Height", Float) = 30.0
+		_FogStart("Linear Fog Start", Range(0, 100)) = 10.0
+		_FogEnd("Linear Fog End", Range(0, 100)) = 60.0
 	}
-		SubShader
+
+	SubShader
 	{
 		
 		Pass
@@ -22,46 +26,52 @@ Shader "InfiniteCollapse/VertexFogDiffuse"
 			#include "UnityLightingCommon.cginc"
 
 			// Set up 
-			sampler2D _MainTex;
+			float4 _MaterialColor;
 			float3 _CameraPos;
-			float4 _FogColor;
+			sampler2D _FogColor;
+			float _GradientCount;
+			int _InitialGradient;
+			float _FogHeight;
 			float _FogStart;
 			float _FogEnd;
 
 			struct VertOut {
 				float4 pos : SV_POSITION;
-				float4 uv : TEXCOORD0;
-				float fog : TEXCOOR1;
-				fixed3 diffuse : COLOR0;
+				float3 diffuse : COLOR0;
+				float3 ambient : COLOR1;
+				float3 fog : COLOR2;
 			};
 
-			VertOut vert(appdata_base input)
+			void vert(appdata_base input, out VertOut output)
 			{
-				VertOut output;
+				UNITY_INITIALIZE_OUTPUT(VertOut, output);
 				output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
-				output.uv = input.texcoord;
 
 				half3 worldNormal = UnityObjectToWorldNormal(input.normal);
 				half nl = max(0, dot(worldNormal, _WorldSpaceLightPos0.xyz));
-				output.diffuse = nl * _LightColor0;
-				output.diffuse.rgb += ShadeSH9(half4(worldNormal, 1));
+				output.diffuse = nl * _LightColor0.rgb;
+				output.ambient = ShadeSH9(half4(worldNormal, 1));
 
 				float4 worldSpaceCoord = mul(unity_ObjectToWorld, input.vertex);
 				float distToCamera = max(0.0, distance(_WorldSpaceCameraPos, worldSpaceCoord) - _FogStart);
-				output.fog = clamp(distToCamera / _FogEnd, 0.0, 1.0);
+				output.fog.r = clamp(distToCamera / _FogEnd, 0.0, 1.0);
 
-				return output;
+				float currentGradient = worldSpaceCoord.y / _FogHeight + (_GradientCount - _InitialGradient - 1);
+				output.fog.g = (1.0 - currentGradient - 1) / _GradientCount;
+				output.fog.b = worldSpaceCoord.y / _FogHeight;
+
 			}
 						
 
-			fixed4 frag(VertOut input) : COLOR
+			float4 frag(VertOut input) : COLOR
 			{
-				fixed4 color = tex2D(_MainTex, input.uv);
-				color *= fixed4(input.diffuse, 1.0);
-				return fixed4(lerp(color.rgb, _FogColor.rgb, input.fog), 1.0);
+				float4 color = float4(_MaterialColor.rgb * (input.diffuse + input.ambient), 1.0);
+				float4 fogColor = tex2D(_FogColor, input.fog.gb);
+				return fixed4(lerp(color.rgb, fogColor.rgb, input.fog.r), 1.0);
 			}
 
-		ENDCG
+			ENDCG
 		}
 	}
+	
 }

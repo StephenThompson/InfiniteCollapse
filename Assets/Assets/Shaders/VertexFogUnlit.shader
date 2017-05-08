@@ -3,10 +3,13 @@ Shader "InfiniteCollapse/VertexFogUnlit"
 {
 	Properties
 	{
-		_MainTex("Base (RGB)", 2D) = "white" {}
-		_FogColor("Fog Color", Color) = (0,0,0,0)
-		_FogStart("Linear Fog Start", Range(0, 100)) = 0.0
-		_FogEnd("Linear Fog End", Range(0, 100)) = 10.0
+		_MaterialColor("Base Color", Color) = (0, 0, 0, 0)
+		_FogColor("Fog Gradients", 2D) = "white" {}
+		_GradientCount("Fog Gradient Count", Int) = 8
+		_InitialGradient("Initial Fog Gradient", Int) = 0
+		_FogHeight("Fog Height", Float) = 30.0
+		_FogStart("Linear Fog Start", Range(0, 100)) = 10.0
+		_FogEnd("Linear Fog End", Range(0, 100)) = 60.0
 	}
 		SubShader
 	{
@@ -21,40 +24,41 @@ Shader "InfiniteCollapse/VertexFogUnlit"
 			#include "UnityCG.cginc"
 
 			// Set up 
-			sampler2D _MainTex;
+			float4 _MaterialColor;
 			float3 _CameraPos;
-			float4 _FogColor;
+			sampler2D _FogColor;
+			float _GradientCount;
+			int _InitialGradient;
+			float _FogHeight;
 			float _FogStart;
 			float _FogEnd;
 
-			struct VertIn {
-				float4 vertex : POSITION;
-				float4 texcoord : TEXCOORD0;
-			};
+			
 			struct VertOut {
 				float4 pos : SV_POSITION;
-				float4 uv : TEXCOORD0;
-				float fog : TEXCOORD1;
+				float3 fog : COLOR0;
 			};
 
-			VertOut vert(VertIn input)
+			void vert(appdata_base input, out VertOut output)
 			{
-				VertOut output;
+				UNITY_INITIALIZE_OUTPUT(VertOut, output);
 				output.pos = mul(UNITY_MATRIX_MVP, input.vertex);
-				output.uv = input.texcoord;
 
 				float4 worldSpaceCoord = mul(unity_ObjectToWorld, input.vertex);
 				float distToCamera = max(0.0, distance(_WorldSpaceCameraPos, worldSpaceCoord) - _FogStart);
-				output.fog = clamp(distToCamera / _FogEnd, 0.0, 1.0);
+				output.fog.r = clamp(distToCamera / _FogEnd, 0.0, 1.0);
 
-				return output;
+				float currentGradient = worldSpaceCoord.y / _FogHeight + (_GradientCount - _InitialGradient - 1);
+				output.fog.g = (1.0 - currentGradient - 1) / _GradientCount;
+				output.fog.b = worldSpaceCoord.y / _FogHeight;
+
 			}
 						
 
 			float4 frag(VertOut input) : COLOR
 			{
-				float4 tex = tex2D(_MainTex, input.uv);
-				return float4(lerp(tex.rgb, _FogColor.rgb, input.fog), 1.0);
+				float4 fogColor = tex2D(_FogColor, input.fog.gb);
+				return float4(lerp(_MaterialColor.rgb, fogColor.rgb, input.fog.r), 1.0);
 			}
 
 		ENDCG
