@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.19301471, g: 0.3019608, b: 0.4745098, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.2
@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1.56
   m_AmbientMode: 3
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 6f27fea456f1e3244802175673b74a5f, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -147,13 +147,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 213745863}
-  m_LocalRotation: {x: 0.9155537, y: 0.1766169, z: 0.2759885, w: 0.23323464}
+  m_LocalRotation: {x: 0.92807114, y: 0.1594602, z: 0.28624785, w: 0.17697088}
   m_LocalPosition: {x: 17.58, y: 1.89, z: 2.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 160.756, y: -38.502014, z: -28.614014}
+  m_LocalEulerAnglesHint: {x: 166.27899, y: -37.22998, z: -24.140015}
 --- !u!4 &792691370 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 13d59fd0af225e64a80486241e72d413, type: 3}
@@ -284,14 +284,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334387028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e759d1cde3fa19c48b6166a890ec4889, type: 3}
+  m_Script: {fileID: 11500000, guid: a47364070f8ebb74b92c9078cb96e911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileMaterial: {fileID: 2100000, guid: 601154ea3441319488d63f5dbd6f4f12, type: 2}
-  dropTimer: 0.05
-  timer: 0
-  pregeneratedNextSection: -1
-  generatedNextSection: 0
+  wd: {fileID: 11400000, guid: db541ce390bac97489177d4a714eb48e, type: 2}
+  lowPolyMaterial: {fileID: 2100000, guid: a55ef713c221e3e45bedbc23d59e8799, type: 2}
+  player: {fileID: 1726894199}
 --- !u!4 &1334387030
 Transform:
   m_ObjectHideFlags: 0

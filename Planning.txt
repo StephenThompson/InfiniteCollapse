@@ -1,0 +1,7 @@
+Generate world as tiles
+Infinitely generates along X and Z axis
+Infinite number of layers
+Fast enough to run on mobiles
+Abitiliy to tell which layer the player is on
+Ability to place prefabs on tiles
+Pooling to reduce garbage collection

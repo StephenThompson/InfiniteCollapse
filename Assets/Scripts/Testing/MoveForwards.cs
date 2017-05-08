@@ -15,11 +15,8 @@ public class MoveForwards : MonoBehaviour {
 	void Update () {
     
         t.z += Time.deltaTime * speed;
-
-        if (Input.GetKey(KeyCode.LeftArrow)) t.x -= Time.deltaTime * movespeed;
-        else if (Input.GetKey(KeyCode.RightArrow)) t.x += Time.deltaTime * movespeed;
-        if (Input.GetKey(KeyCode.UpArrow)) t.y += Time.deltaTime * movespeed;
-        else if (Input.GetKey(KeyCode.DownArrow)) t.y -= Time.deltaTime * movespeed;
+        t.x += Mathf.Round(Input.GetAxis("Horizontal") * 10000) * 0.0001f * Time.deltaTime * movespeed;
+        t.y += Mathf.Round(Input.GetAxis("Vertical") * 10000) * 0.0001f * Time.deltaTime * movespeed;
         transform.position = t;
     }
 }

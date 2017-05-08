@@ -7,12 +7,7 @@ Obj/
 UnityGenerated/
 Library/
 Assets/AssetStoreTools*
-Assets/Resources/Models/*
-Assets/Resources/Textures/*
-Assets/Resources/Sounds/*
-Assets/Resources/Sprites/*
-Assets/Resources/Images/*
-Assets/Resources/Music/*
+Assets/Resources/*
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #
