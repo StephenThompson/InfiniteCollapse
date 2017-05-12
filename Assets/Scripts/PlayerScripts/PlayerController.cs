@@ -6,19 +6,21 @@ public class PlayerController : MonoBehaviour
 {
     //physics stuff
     public Vector3 velocity = new Vector3(0, 0, 0);
+    public Vector3 acceleration = new Vector3(0, 0, 0);
     public float mass = 100;
     public float thrust = 0.05f;
     public float drag = 0.01f;
     public float angularDrag = 0.01f;
     public float forwardThrust = 1f;
     private Transform tr;
+    bool dead = false;
     //power up  stuff
     public float boostThrust = 10;
     private Vector3 boostDir = new Vector3(0, 0, 0);
     private float coolDownI = 4;
     float coolDown = 4;//cooldown when fuel gets to zero
     float fuelCapacity = 1000;
-    float fuelBurn = 15;
+    public float fuelBurn = 15;
     bool onCoolDown = false;
 //    private bool dead = false;
     //collision stuff
@@ -56,12 +58,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+       
         Vector3 netForce = new Vector3(0, 0, 0);//this is the net force that is added to the object every update
         //not the overall netforce
             //takes player input and adds the thrust to the netforce
-    
-			
-			
 			if (Input.GetKey("s"))//down
             {
 				netForce.y = netForce.y - thrust;
@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour
             float accelerationX = (netForce.x / mass) + boostX - velocity.x * drag;
             float accelerationY = (netForce.y / mass) + boostY - velocity.y * drag;
             float accelerationZ = (netForce.z / mass) + boostZ - velocity.z * drag;
+            acceleration = new Vector3(accelerationX, accelerationY, accelerationZ);
             //then just update the velocity vector by adding the acceleration vector
             velocity.x = velocity.x + accelerationX;
             velocity.y = velocity.y + accelerationY;
@@ -142,19 +143,23 @@ public class PlayerController : MonoBehaviour
             StartPoint = new Vector3(collider1.bounds.min.x + margin, transform.position.y, transform.position.z);
             if (IsCollidingVertically())
             {
-//                dead = true;
+            tr.parent = HitInfo.collider.gameObject.transform;
+            dead = true;
             }
             if (IsCollidingHorizontally())
             {
-      //          dead = true;
+            tr.parent = HitInfo.collider.gameObject.transform;
+            dead = true;
             }
             if (IsCollidingForward())
-            {
-                
-            }
+           {
+            tr.parent = HitInfo.collider.gameObject.transform;
+            dead = true;
+
+           }
             //finally transform the player by the velocity vector(via world co-ordinates)
             Vector3 relative = transform.InverseTransformDirection(velocity);
-            tr.Translate(relative);
+          if(!dead)tr.Translate(relative);
     }
 
     bool IsCollidingVertically()
@@ -170,10 +175,14 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(Origin, Vector3.up * DirectionFactor, Color.yellow);
             if (Physics.Raycast(ray, out HitInfo, LengthOfRay)|| Physics.Raycast(ray2, out HitInfo, LengthOfRay))
             {
-                print("Collided With " + HitInfo.collider.gameObject.name + " vertically " + Time.realtimeSinceStartup);
-                // Negate the Directionfactor to reverse the moving direction of colliding cube(here cube2)
-                DirectionFactor = -DirectionFactor;
-                return true;
+                if (!(HitInfo.collider.gameObject.name.Equals("ExhaustLeft")) && !(HitInfo.collider.gameObject.name.Equals("ExhaustRight")) &&
+                    !(HitInfo.collider.gameObject.name.Equals("ShipBody1")))
+                {
+                    print("Collided With " + HitInfo.collider.gameObject.name + " vertically " + Time.realtimeSinceStartup);
+                    // Negate the Directionfactor to reverse the moving direction of colliding cube(here cube2)
+                    DirectionFactor = -DirectionFactor;
+                    return true;
+                }
             }
             Origin += new Vector3(DistanceBetweenRays, 0, 0);
         }
@@ -193,10 +202,14 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(Origin, Vector3.right * DirectionFactor2, Color.yellow);
             if (Physics.Raycast(ray, out HitInfo, LengthOfRay2) || Physics.Raycast(ray2, out HitInfo, LengthOfRay2))
             {
-                print("Collided With " + HitInfo.collider.gameObject.name + " horizontal-like " + Time.realtimeSinceStartup);
-                // Negate the Directionfactor to reverse the moving direction of colliding cube(here cube2)
-                DirectionFactor2 = -DirectionFactor2;
-                return true;
+                if (!(HitInfo.collider.gameObject.name.Equals("ExhaustLeft")) && !(HitInfo.collider.gameObject.name.Equals("ExhaustRight"))&&
+                    !(HitInfo.collider.gameObject.name.Equals("ShipBody1")))
+                {
+                    print("Collided With " + HitInfo.collider.gameObject.name + " horizontal-like " + Time.realtimeSinceStartup);
+                    // Negate the Directionfactor to reverse the moving direction of colliding cube(here cube2)
+                    DirectionFactor2 = -DirectionFactor2;
+                    return true;
+                }
             }
             Origin += new Vector3(0, DistanceBetweenRays, 0);
         }
@@ -216,10 +229,13 @@ public class PlayerController : MonoBehaviour
             Debug.DrawRay(Origin, Vector3.forward * DirectionFactor2, Color.yellow);
             if (Physics.Raycast(ray, out HitInfo, LengthOfRay3) || Physics.Raycast(ray2, out HitInfo, LengthOfRay3))
             {
+                if (!(HitInfo.collider.gameObject.name.Equals("ExhaustLeft")) && !(HitInfo.collider.gameObject.name.Equals("ExhaustRight"))&&
+                    !(HitInfo.collider.gameObject.name.Equals("ShipBody1"))) { 
                 print("Collided With " + HitInfo.collider.gameObject.name + " forwardly " + Time.realtimeSinceStartup);
                 // Negate the Directionfactor to reverse the moving direction of colliding cube(here cube2)
                 DirectionFactor3 = -DirectionFactor3;
                 return true;
+                }
             }
             Origin += new Vector3(0, DistanceBetweenRays, 0);
         }

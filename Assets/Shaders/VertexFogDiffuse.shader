@@ -5,13 +5,13 @@ Shader "InfiniteCollapse/VertexFogDiffuse"
 {
 	Properties
 	{
-		_MaterialColor("Base Color", Color) = (0, 0, 0, 0)
+		_MaterialColor("Base Color", Color) = (1, 1, 1, 1)
 		_FogColor("Fog Gradients", 2D) = "white" {}
 		_GradientCount("Fog Gradient Count", Int) = 8
 		_InitialGradient("Initial Fog Gradient", Int) = 0
 		_FogHeight("Fog Height", Float) = 30.0
-		_FogStart("Linear Fog Start", Range(0, 100)) = 10.0
-		_FogEnd("Linear Fog End", Range(0, 100)) = 60.0
+		_FogStart("Linear Fog Start", Range(0, 1000)) = 10.0
+		_FogEnd("Linear Fog End", Range(0, 10000)) = 60.0
 	}
 
 	SubShader

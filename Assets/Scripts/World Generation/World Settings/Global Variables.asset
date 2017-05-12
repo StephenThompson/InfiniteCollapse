@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 247c51e3215b0ca429d8a0f0ccb4ce94, type: 3}
   m_Name: Global Variables
   m_EditorClassIdentifier: 
-  FALLING_SPEED: 40
-  LAYER_HEIGHT: 60
+  FALLING_SPEED: 60
+  LAYER_HEIGHT: 300
   FALLING_BLOCKS_PER_SECOND: 10
-  DROP_NUMBER: 10
-  TILE_SIZE: {x: 128, y: 32, z: 128}
+  DROP_NUMBER: 5
+  TILE_SIZE: {x: 300, y: 120, z: 300}

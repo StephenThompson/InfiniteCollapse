@@ -23,9 +23,9 @@ public class CameraMovement : MonoBehaviour {
     {
         transform.TransformPoint(new Vector3(offset.x, 0, 0));
         transform.position = Cube.transform.position + offset;
-        transform.Translate(new Vector3(0, 0, -20));// -movement.velocity.magnitude/ forwardM));
+        transform.Translate(new Vector3(0, -2, -5));// -movement.velocity.magnitude/ forwardM));
 		Camera c = GetComponent<Camera> ();
-        c.fieldOfView = Mathf.Clamp(movement.velocity.z * 20, 60, 120);
+        c.fieldOfView = (movement.velocity.z * 30) - 50;
         float x = movement.velocity.x;
         float y = movement.velocity.y;
 		//transform.localRotation = new Quaternion(-y / xRot, x / yRot, x / zRot, Cube.transform.rotation.w);
