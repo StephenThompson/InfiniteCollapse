@@ -72,7 +72,8 @@ public class ScoreStorer : MonoBehaviour {
 		{
 			PlayerPrefs.SetInt(i + "SCORE", scores[i]);
 		}
-	}
+        PlayerPrefs.Save();
+    }
 
     // Call when the game has ended with new score
 	void AddScore(int score)
