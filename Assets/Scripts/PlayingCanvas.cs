@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /*
 Author: Nigel Munro
@@ -21,6 +22,8 @@ public class PlayingCanvas : MonoBehaviour {
 
     public float currentScore = 0;
 
+    public float resetTimer = 0.0f;
+
     // Use this for initialization
     void Start () {
         
@@ -39,9 +42,13 @@ public class PlayingCanvas : MonoBehaviour {
 	void Update () {
 		if (!shipBody.GetComponent<PlayerController>().dead)
 		{
-            currentScore += Time.deltaTime * Mathf.PI * 100;
+            currentScore += (float)(shipBody.transform.position.z * Mathf.PI * 0.1f);
 
-		}
+        } else if (resetTimer > 1) {
+            SceneManager.LoadScene(1);
+        } else {
+            resetTimer += Time.deltaTime;
+        }
         scoreText.text = "" + (int)currentScore;
 	}
 
