@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float angularDrag = 0.01f;
     public float forwardThrust = 1f;
     private Transform tr;
-    bool dead = false;
+    public bool dead = false;
     //power up  stuff
     public float boostThrust = 10;
     private Vector3 boostDir = new Vector3(0, 0, 0);

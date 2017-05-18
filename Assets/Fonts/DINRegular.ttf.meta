@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f3da4e842a2d54515a4c7d9c102000cf
-timeCreated: 1491050577
+guid: a0452a266ff22423b80755ef10478320
+timeCreated: 1495140379
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 4
@@ -9,11 +9,12 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Roboto Condensed
+  fontName: DIN
   fontNames:
-  - Roboto Condensed
+  - DIN
   fallbackFontReferences:
-  - {fileID: 12800000, guid: 1b2447e931ff51b45a00be8fcdef6431, type: 3}
+  - {fileID: 12800000, guid: 2f53b8674833f41ecbb211af9671cbfa, type: 3}
+  - {fileID: 12800000, guid: 6b36f16848dfc42958e553f664ae5e56, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

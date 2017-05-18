@@ -9,6 +9,8 @@ Author: Nigel Munro
 
 public class PlayingCanvas : MonoBehaviour {
 
+    public GameObject shipBody;
+
     public GameObject levelTextGameObject;
     public GameObject scoreTextGameObject;
     public GameObject gemCountTextGameObject;
@@ -16,6 +18,8 @@ public class PlayingCanvas : MonoBehaviour {
     private Text levelText;
     private Text scoreText;
     private Text gemCountText;
+
+    public float currentScore = 0;
 
     // Use this for initialization
     void Start () {
@@ -33,8 +37,17 @@ public class PlayingCanvas : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (!shipBody.GetComponent<PlayerController>().dead)
+		{
+            currentScore += Time.deltaTime * Mathf.PI * 100;
+
+		}
+        scoreText.text = "" + (int)currentScore;
 	}
+
+    void FixedUpdate() {
+        
+    }
 
     public void setLevel(int level)
     {
