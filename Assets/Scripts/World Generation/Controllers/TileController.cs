@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class TileController : MonoBehaviour {
-    public WorldDefinition wd;
-
     private Queue<FallingBlockController> staticTiles;
     private List<FallingBlockController> droppedTiles;
 
-    void Start () {
+    public void setupTiles(WorldDefinition worldSetting, Collider[] c)
+    {
         Transform[] subBlocks = gameObject.GetComponentsInChildren<Transform>();
         staticTiles = new Queue<FallingBlockController>();
         droppedTiles = new List<FallingBlockController>();
@@ -16,13 +14,11 @@ public class TileController : MonoBehaviour {
         for (int i = 0; i < subBlocks.Length; ++i)
         {
             if (subBlocks[i] == transform) continue;
-            /*Collider[] c = subBlocks[i].gameObject.GetComponents<Collider>();
-            foreach (Collider n in c) n.isTrigger = true;*/
             FallingBlockController fbc = subBlocks[i].gameObject.AddComponent<FallingBlockController>();
-            fbc.wd = wd;
             staticTiles.Enqueue(fbc);
+            fbc.worldSettings = worldSetting;
+            fbc.BelowTileColliders = c;
         }
-            
     }
 
     public bool dropTile()

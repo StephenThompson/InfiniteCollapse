@@ -1,0 +1,10 @@
+- This is just some random planning stuff -
+Remove Lengthwise Seams (semi Done)
+Performance > 500fps (Done)
+Make blocks fall flat on top of each other
+Make blocks not fall close to player
+Fix block scaling code
+Add layers (Semi Done)
+Clean Up Designer Controls (done)
+Comment/Clean up Code (semi Done)
+Add Height Variation

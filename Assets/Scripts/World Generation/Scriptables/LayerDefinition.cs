@@ -9,13 +9,13 @@ public class LayerDefinition : ScriptableObject
 
     public float scale()
     {
-        Renderer[] s = BlockPrefabs[0].GetComponentsInChildren<Renderer>();//.bounds.size;
+        Renderer[] s = BlockPrefabs[0].GetComponentsInChildren<Renderer>();
         float xMin = float.MaxValue;
         float xMax = float.MinValue;
         foreach (Renderer r in s) {
             xMin = Mathf.Min(xMin, r.bounds.size.x);
             xMax = Mathf.Max(xMax, r.bounds.size.x);
         }
-        return 1f / (xMax - xMin);
+        return 0.5f / (xMax - xMin);
     }
 }

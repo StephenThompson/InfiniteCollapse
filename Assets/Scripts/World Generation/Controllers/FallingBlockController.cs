@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 
 public class FallingBlockController : MonoBehaviour {
-    public WorldDefinition wd;
+    public WorldDefinition worldSettings;
 
     private Vector3 startPosition;
     private bool hasDropped;
     private bool hasCollision;
     private Vector3 size;
+
+    private Collider[] selfColliders;
+    private Collider[] belowTileColliders;
+    public Collider[] BelowTileColliders
+    {
+        set { belowTileColliders = value; }
+    }
 
     public bool HasDropped
     {
@@ -15,44 +22,47 @@ public class FallingBlockController : MonoBehaviour {
     }
 
 	void Start () {
-        size = GetComponent<Renderer>().bounds.size;
+        Renderer r = GetComponent<Renderer>();
+        size = r.bounds.size;
+        r.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         startPosition = transform.localPosition;
+        selfColliders = GetComponents<Collider>();
     }
 
 	void FixedUpdate () {
-
+        // Drop tile until collision occurs
         if (hasDropped && !hasCollision) {
-            RaycastHit rc;
-            float fallstep = wd.constantValues.FALLING_SPEED * Time.deltaTime;
-            float minStep = fallstep;
-            for (int x = -1; x <= 1; ++x)
+            float fallstep = worldSettings.FallSpeed * Time.deltaTime;
+            transform.position += Vector3.down * fallstep;
+            float height = startPosition.y - worldSettings.LayerHeight + worldSettings.TileSize.y * 0.44f;
+
+            if (transform.localPosition.y < height)
             {
-                for (int z = -1; z <= 1; ++z)
-                {
-                    if (Physics.Raycast(transform.position + new Vector3(size.x * 0.4f * x, -size.y * 0.5f, size.z * 0.4f * x), Vector3.down, out rc))
-                    {
-                       if (rc.distance < minStep)
-                        {
-                            minStep = rc.distance;
-                        }
-                    }
-                }
+                transform.localPosition = new Vector3(startPosition.x, height, startPosition.z);
+                hasCollision = true;
+                return;
             }
 
-            transform.position += Vector3.down * minStep;
-            hasCollision = minStep + 0.001f < fallstep;
+            /* Accurate collision code is disabled until optimizations are applied
+             * for (int i = 0; i < selfColliders.Length; ++i)
+            {
+                for (int j = 0; j < belowTileColliders.Length; ++j)
+                {
+                    // If colliding, stop checking for collisions
+                    if (selfColliders[i].bounds.Intersects(belowTileColliders[j].bounds))
+                    {
+                        hasCollision = true;
+                        return;
+                    }
+                }
+            }*/
         }
-	}
+    }
 
    public void resetBlock()
     {
-        transform.localPosition = startPosition;
+        Vector3 perlinPos = transform.localPosition * 0.1f;
+        transform.localPosition = startPosition + Vector3.up * Mathf.PerlinNoise(perlinPos.x, perlinPos.z + perlinPos.y) * worldSettings.TerrainHeightVariation;
         hasCollision = hasDropped = false;
     }
-
-    /*void OnTriggerEnter(Collider collision)
-    {
-        //Debug.Log("ASDA");
-        hasCollision = true;
-    }*/
 }
