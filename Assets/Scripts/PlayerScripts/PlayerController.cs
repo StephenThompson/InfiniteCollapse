@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
         }
             float accelerationX = (netForce.x / mass) + boostX - velocity.x * drag;
             float accelerationY = (netForce.y / mass) + boostY - velocity.y * drag;
-            float accelerationZ = (netForce.z / mass) + boostZ - velocity.z * drag;
+            float accelerationZ = (netForce.z / mass)  - velocity.z * drag;
             acceleration = new Vector3(accelerationX, accelerationY, accelerationZ);
             //then just update the velocity vector by adding the acceleration vector
             velocity.x = velocity.x + accelerationX;

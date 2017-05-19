@@ -10,64 +10,61 @@ Author: Nigel Munro
 
 public class PlayingCanvas : MonoBehaviour {
 
-    public GameObject shipBody;
+	public GameObject shipBody;
 
-    public GameObject levelTextGameObject;
-    public GameObject scoreTextGameObject;
-    public GameObject gemCountTextGameObject;
 
-    private Text levelText;
-    private Text scoreText;
-    private Text gemCountText;
+	public GameObject scoreTextGameObject;
 
-    public float currentScore = 0;
 
-    public float resetTimer = 0.0f;
+	private Text levelText;
+	private Text scoreText;
+	private Text gemCountText;
 
-    // Use this for initialization
-    void Start () {
-        
-        levelText = levelTextGameObject.GetComponent<Text>();
-        levelText.text = "Level " + 999999;
+	public float currentScore = 0;
 
-        scoreText = scoreTextGameObject.GetComponent<Text>();
-        scoreText.text = "" + 888888;
+	public float resetTimer = 0.0f;
 
-        gemCountText = gemCountTextGameObject.GetComponent<Text>();
-        gemCountText.text = "" + 777777;
+	// Use this for initialization
+	void Start () {
 
-    }
-	
+
+
+		scoreText = scoreTextGameObject.GetComponent<Text>();
+		scoreText.text = "" + 888888;
+
+
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if (!shipBody.GetComponent<PlayerController>().dead)
 		{
-            currentScore += (float)(shipBody.transform.position.z * Mathf.PI * 0.1f);
+			currentScore += (float)(shipBody.transform.position.z * Mathf.PI * 0.001f);
 
-        } else if (resetTimer > 1) {
-            SceneManager.LoadScene(1);
-        } else {
-            resetTimer += Time.deltaTime;
-        }
-        scoreText.text = "" + (int)currentScore;
+		} else if (resetTimer > 1) {
+			SceneManager.LoadScene(0);
+		} else {
+			resetTimer += Time.deltaTime;
+		}
+		scoreText.text = "" + (int)currentScore;
 	}
 
-    void FixedUpdate() {
-        
-    }
+	void FixedUpdate() {
 
-    public void setLevel(int level)
-    {
-        levelText.text = "Level " + level;
-    }
+	}
 
-    public void setScore(int score)
-    {
-        scoreText.text = "" + score;
-    }
+	public void setLevel(int level)
+	{
+		levelText.text = "Level " + level;
+	}
 
-    public void setWut(int wut)
-    {
-        gemCountText.text = "" + wut;
-    }
+	public void setScore(int score)
+	{
+		scoreText.text = "" + score;
+	}
+
+	public void setWut(int wut)
+	{
+		gemCountText.text = "" + wut;
+	}
 }

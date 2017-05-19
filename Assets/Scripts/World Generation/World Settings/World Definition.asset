@@ -8,9 +8,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b9d03c9da180c24da40b59e64e4a920, type: 3}
-  m_Name: Layers
+  m_Script: {fileID: 11500000, guid: 247c51e3215b0ca429d8a0f0ccb4ce94, type: 3}
+  m_Name: World Definition
   m_EditorClassIdentifier: 
-  constantValues: {fileID: 11400000, guid: e7cdcf525d2d108429a4a98e24cbbebe, type: 2}
-  layers:
+  LayerHeight: 400
+  TerrainHeightVariation: 50
+  TileSize: {x: 400, y: 200, z: 400}
+  BlocksPerDrop: 10
+  DropRate: 5
+  InitialTimeBeforeSpawn: 5
+  FallSpeed: 100
+  Layers:
   - {fileID: 11400000, guid: 8c0ef7d5a0196c04e9ebeb66c0f21cb4, type: 2}
