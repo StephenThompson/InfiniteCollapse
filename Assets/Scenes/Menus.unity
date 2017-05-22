@@ -646,7 +646,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &354385173
 GameObject:
@@ -742,7 +742,7 @@ RectTransform:
   - {fileID: 1361251195}
   - {fileID: 147072865}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1734,7 +1734,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1003105459
 GameObject:
@@ -1868,7 +1868,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1136410445
 GameObject:
@@ -2215,9 +2215,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1443225974}
-  - component: {fileID: 1443225973}
   - component: {fileID: 1443225972}
-  - component: {fileID: 1443225975}
+  - component: {fileID: 1443225973}
   m_Layer: 0
   m_Name: GameStateManager
   m_TagString: Untagged
@@ -2237,11 +2236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
-  level: 0
-  score: 0
   mainMenuCanvas: {fileID: 354385173}
-  playingCanvas: {fileID: 508656634}
-  pausedCanvas: {fileID: 2081390067}
   scoresCanvas: {fileID: 259323306}
 --- !u!114 &1443225973
 MonoBehaviour:
@@ -2251,12 +2246,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1443225971}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16fc206081900704080fd3026d932b84, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a34fe20259559f46bb538336e16fc51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelTextGameObject: {fileID: 785456184}
-  scoreTextGameObject: {fileID: 794143705}
-  gemCountTextGameObject: {fileID: 1341676252}
+  score0: {fileID: 760696442}
+  score1: {fileID: 86385361}
+  score2: {fileID: 174166664}
+  score3: {fileID: 1943187291}
 --- !u!4 &1443225974
 Transform:
   m_ObjectHideFlags: 0
@@ -2270,21 +2266,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1443225975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1443225971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65fbc5d7eca884da995e6f89dcef49c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score0: {fileID: 760696442}
-  score1: {fileID: 86385361}
-  score2: {fileID: 174166664}
-  score3: {fileID: 1943187291}
 --- !u!1 &1612308941
 GameObject:
   m_ObjectHideFlags: 0

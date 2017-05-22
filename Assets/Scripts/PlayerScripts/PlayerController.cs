@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
                 if (!(HitInfo.collider.gameObject.name.Equals("ExhaustLeft")) && !(HitInfo.collider.gameObject.name.Equals("ExhaustRight")) &&
                     !(HitInfo.collider.gameObject.name.Equals("ShipBody1")))
                 {
-                    print("Collided With " + HitInfo.collider.gameObject.name + " vertically " + Time.realtimeSinceStartup);
+                    //print("Collided With " + HitInfo.collider.gameObject.name + " vertically " + Time.realtimeSinceStartup);
                     // Negate the Directionfactor to reverse the moving direction of colliding cube(here cube2)
                     DirectionFactor = -DirectionFactor;
                     return true;
@@ -231,7 +231,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (!(HitInfo.collider.gameObject.name.Equals("ExhaustLeft")) && !(HitInfo.collider.gameObject.name.Equals("ExhaustRight"))&&
                     !(HitInfo.collider.gameObject.name.Equals("ShipBody1"))) { 
-                print("Collided With " + HitInfo.collider.gameObject.name + " forwardly " + Time.realtimeSinceStartup);
+                //print("Collided With " + HitInfo.collider.gameObject.name + " forwardly " + Time.realtimeSinceStartup);
                 // Negate the Directionfactor to reverse the moving direction of colliding cube(here cube2)
                 DirectionFactor3 = -DirectionFactor3;
                 return true;

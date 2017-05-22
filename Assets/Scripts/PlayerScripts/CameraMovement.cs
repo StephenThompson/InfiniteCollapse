@@ -31,6 +31,6 @@ public class CameraMovement : MonoBehaviour {
 		//transform.localRotation = new Quaternion(-y / xRot, x / yRot, x / zRot, Cube.transform.rotation.w);
 		//transform.Rotate (-y / xRot, x / yRot, x / zRot);
 		tr.rotation = new Quaternion(-y / xRot,  x / yRot, x / zRot, tr.rotation.w);
-		print (-x / xRot);
+		//print (-x / xRot);
 	}
 }
